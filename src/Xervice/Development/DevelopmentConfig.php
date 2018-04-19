@@ -32,17 +32,26 @@ class DevelopmentConfig extends AbstractConfig
     public function getDirectories()
     {
         $dirs = [
-            $this->get(XerviceConfig::APPLICATION_PATH) . '/src/Xervice/',
             $this->get(XerviceConfig::APPLICATION_PATH) . '/src/' . $this->get(CoreConfig::PROJECT_LAYER_NAMESPACE) . '/',
+            $this->get(XerviceConfig::APPLICATION_PATH) . '/src/Xervice/',
             $this->get(XerviceConfig::APPLICATION_PATH) . '/vendor/Xervice/*/src/Xervice/'
         ];
 
         foreach ($dirs as $key => $dir) {
-            if (!is_dir($dir)) {
+            if (strpos($dir, '*') === false && !is_dir($dir)) {
                 unset($dirs[$key]);
             }
         }
 
         return $dirs;
+    }
+
+    /**
+     * @return string
+     * @throws \Xervice\Config\Exception\ConfigNotFound
+     */
+    public function getApplicationPath()
+    {
+        return $this->get(XerviceConfig::APPLICATION_PATH);
     }
 }

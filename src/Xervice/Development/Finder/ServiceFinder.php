@@ -31,11 +31,12 @@ class ServiceFinder implements ServiceFinderInterface
         $services = [];
 
         $finder = new Finder();
-        $finder->directories()->in($this->directories);
+        $finder->directories()->depth(0)->in($this->directories);
 
         foreach ($finder as $dir) {
-            if (!in_array($dir->getFilename(), $services)) {
-                $services[] = $dir->getFilename();
+            $service = $dir->getFilename();
+            if (!isset($services[$service])) {
+                $services[$service] = $dir;
             }
         }
 

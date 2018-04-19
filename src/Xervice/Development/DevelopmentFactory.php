@@ -24,7 +24,8 @@ class DevelopmentFactory extends AbstractFactory
     {
         return new AutoCompleteGenerator(
             $this->createServiceFinder(),
-            $this->getConfig()->getGeneratedPath()
+            $this->getConfig()->getGeneratedPath(),
+            $this->getConfig()->getApplicationPath()
         );
     }
 
