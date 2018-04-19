@@ -1,0 +1,31 @@
+{
+  "name"             : "xervice/development",
+  "license"          : "MIT",
+  "authors"          : [
+    {
+      "name" : "Mike Bertram",
+      "email": "contact@mibexx.de"
+    }
+  ],
+  "require-dev": {
+    "codeception/codeception": "*",
+    "symfony/var-dumper": "*"
+  },
+  "require": {
+    "php": ">=7.1.0",
+    "xervice/config": "dev-master",
+    "xervice/core": "dev-master",
+    "xervice/console": "dev-master",
+    "nette/php-generator": "3.1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "XerviceTest\\": "tests/Xervice/",
+      "DataProvider\\": "src/Generated/"
+    },
+    "psr-0": {
+      "Xervice\\": "src/",
+      "Generated\\": "src/"
+    }
+  }
+}
