@@ -87,7 +87,11 @@ class AutoCompleteGenerator implements AutoCompleteGeneratorInterface
     {
         $namespace = $path->getFilename();
         if (strpos($path->getRealPath(), '/vendor/') !== false) {
-            $namespace = '\\Xervice\\' . $namespace;
+            if (preg_match('@([A-Za-z]+)\\\\([A-Za-z]+)\\\\([A-Za-z\\\\]+)@', get_class($this), $matches)) {
+                $namespace = '\\' . $matches[1] . '\\' . $namespace;
+            } else {
+                $namespace = '\\Xervice\\' . $namespace;
+            }
         }
         else {
             $namespacePrefix = str_replace(
