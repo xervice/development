@@ -5,6 +5,7 @@ namespace Xervice\Development\Generator;
 
 
 use Nette\PhpGenerator\PhpNamespace;
+use Symfony\Component\Finder\SplFileInfo;
 use Xervice\Core\Client\EmptyClient;
 use Xervice\Core\Config\EmptyConfig;
 use Xervice\Core\Facade\EmptyFacade;
@@ -83,12 +84,13 @@ class AutoCompleteGenerator implements AutoCompleteGeneratorInterface
     /**
      * @param $path
      */
-    private function getServiceNamespace($path)
+    private function getServiceNamespace(SplFileInfo $path)
     {
         $namespace = $path->getFilename();
         if (strpos($path->getRealPath(), '/vendor/') !== false) {
-            if (preg_match('@([A-Za-z]+)\\\\([A-Za-z]+)\\\\([A-Za-z\\\\]+)@', get_class($this), $matches)) {
-                $namespace = '\\' . $matches[1] . '\\' . $namespace;
+            $vendorPath = substr($path->getRealPath(), strpos($path->getRealPath(), 'vendor') + 7);
+            if (preg_match('@([A-Za-z]+)/([A-Za-z]+)/([A-Za-z]+)/([A-Za-z]+)/([A-Za-z]+)@', $vendorPath, $matches)) {
+                $namespace = '\\' . $matches[4] . '\\' . $namespace;
             } else {
                 $namespace = '\\Xervice\\' . $namespace;
             }
