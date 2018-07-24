@@ -11,7 +11,9 @@ use Xervice\Core\Locator\Locator;
 
 class DevelopmentConfig extends AbstractConfig
 {
-    const GENERATED_PATH = 'generated.path';
+    public const GENERATED_PATH = 'generated.path';
+
+    public const SEARCH_PATHS = 'search.paths';
 
     /**
      * @return string
@@ -31,11 +33,7 @@ class DevelopmentConfig extends AbstractConfig
      */
     public function getDirectories()
     {
-        $dirs = [
-            $this->get(XerviceConfig::APPLICATION_PATH) . '/src/' . $this->get(CoreConfig::PROJECT_LAYER_NAMESPACE) . '/',
-            $this->get(XerviceConfig::APPLICATION_PATH) . '/src/Xervice/',
-            $this->get(XerviceConfig::APPLICATION_PATH) . '/vendor/Xervice/*/src/Xervice/'
-        ];
+        $dirs = $this->get(self::SEARCH_PATHS, $this->getDefaultSearchPaths());
 
         foreach ($dirs as $key => $dir) {
             if (strpos($dir, '*') === false && !is_dir($dir)) {
@@ -53,5 +51,19 @@ class DevelopmentConfig extends AbstractConfig
     public function getApplicationPath()
     {
         return $this->get(XerviceConfig::APPLICATION_PATH);
+    }
+
+    /**
+     * @return array
+     * @throws \Xervice\Config\Exception\ConfigNotFound
+     */
+    private function getDefaultSearchPaths(): array
+    {
+        return [
+            $this->get(XerviceConfig::APPLICATION_PATH) . '/src/' . $this->get(CoreConfig::PROJECT_LAYER_NAMESPACE)
+            . '/',
+            $this->get(XerviceConfig::APPLICATION_PATH) . '/src/Xervice/',
+            $this->get(XerviceConfig::APPLICATION_PATH) . '/vendor/xervice/*/src/Xervice/'
+        ];
     }
 }
