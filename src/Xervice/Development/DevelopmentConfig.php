@@ -4,10 +4,9 @@
 namespace Xervice\Development;
 
 
-use Xervice\Config\XerviceConfig;
-use Xervice\Core\Config\AbstractConfig;
+use Xervice\Config\Business\XerviceConfig;
+use Xervice\Core\Business\Model\Config\AbstractConfig;
 use Xervice\Core\CoreConfig;
-use Xervice\Core\Locator\Locator;
 
 class DevelopmentConfig extends AbstractConfig
 {
@@ -17,7 +16,6 @@ class DevelopmentConfig extends AbstractConfig
 
     /**
      * @return string
-     * @throws \Xervice\Config\Exception\ConfigNotFound
      */
     public function getGeneratedPath()
     {
@@ -29,7 +27,6 @@ class DevelopmentConfig extends AbstractConfig
 
     /**
      * @return array
-     * @throws \Xervice\Config\Exception\ConfigNotFound
      */
     public function getDirectories()
     {
@@ -46,7 +43,6 @@ class DevelopmentConfig extends AbstractConfig
 
     /**
      * @return string
-     * @throws \Xervice\Config\Exception\ConfigNotFound
      */
     public function getApplicationPath()
     {
@@ -55,15 +51,20 @@ class DevelopmentConfig extends AbstractConfig
 
     /**
      * @return array
-     * @throws \Xervice\Config\Exception\ConfigNotFound
      */
     private function getDefaultSearchPaths(): array
     {
-        return [
-            $this->get(XerviceConfig::APPLICATION_PATH) . '/src/' . $this->get(CoreConfig::PROJECT_LAYER_NAMESPACE)
-            . '/',
-            $this->get(XerviceConfig::APPLICATION_PATH) . '/src/Xervice/',
-            $this->get(XerviceConfig::APPLICATION_PATH) . '/vendor/xervice/*/src/Xervice/'
-        ];
+        $paths = [];
+        $applicationPath = $this->get(XerviceConfig::APPLICATION_PATH);
+
+        foreach ($this->get(CoreConfig::CORE_NAMESPACES, []) as $namespace) {
+            $paths[] = $applicationPath . '/vendor/' . strtolower($namespace) . '/*/src/' . $namespace . '/';
+        }
+
+        foreach ($this->get(CoreConfig::PROJECT_NAMESPACES, []) as $namespace) {
+            $paths[] = $applicationPath . '/src/' . $namespace;
+        }
+
+        return $paths;
     }
 }

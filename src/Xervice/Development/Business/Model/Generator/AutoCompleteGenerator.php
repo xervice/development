@@ -1,17 +1,13 @@
 <?php
 
 
-namespace Xervice\Development\Generator;
+namespace Xervice\Development\Business\Model\Generator;
 
 
 use Nette\PhpGenerator\PhpNamespace;
 use Symfony\Component\Finder\SplFileInfo;
-use Xervice\Core\Client\EmptyClient;
-use Xervice\Core\Config\EmptyConfig;
-use Xervice\Core\Facade\EmptyFacade;
-use Xervice\Core\Factory\EmptyFactory;
-use Xervice\Core\Locator\Proxy\XerviceLocatorProxy;
-use Xervice\Development\Finder\ServiceFinderInterface;
+use Xervice\Core\Business\Model\Facade\AbstractFacade;
+use Xervice\Development\Business\Model\Finder\ServiceFinderInterface;
 
 class AutoCompleteGenerator implements AutoCompleteGeneratorInterface
 {
@@ -61,16 +57,7 @@ class AutoCompleteGenerator implements AutoCompleteGeneratorInterface
             $serviceClass = $namespace->addClass($service);
             $serviceClass->setAbstract(true);
             $serviceClass->addComment(
-                '@method ' . $serviceNamespace . '\\' . $service . 'Client|\\' . EmptyClient::class . ' client()'
-            );
-            $serviceClass->addComment(
-                '@method ' . $serviceNamespace . '\\' . $service . 'Config|\\' . EmptyConfig::class . ' config()'
-            );
-            $serviceClass->addComment(
-                '@method ' . $serviceNamespace . '\\' . $service . 'Facade|\\' . EmptyFacade::class . ' facade()'
-            );
-            $serviceClass->addComment(
-                '@method ' . $serviceNamespace . '\\' . $service . 'Factory|\\' . EmptyFactory::class . ' factory()'
+                '@method ' . $serviceNamespace . '\\Business\\' . $service . 'Facade|\\' . AbstractFacade::class . ' facade()'
             );
 
             $locatorAutoComplete->addComment('@method \\' . self::NAMESPACE . '\\' . $service . ' ' . lcfirst($service));

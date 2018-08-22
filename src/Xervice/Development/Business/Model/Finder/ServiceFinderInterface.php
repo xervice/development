@@ -1,6 +1,6 @@
 <?php
 
-namespace Xervice\Development\Finder;
+namespace Xervice\Development\Business\Model\Finder;
 
 interface ServiceFinderInterface
 {

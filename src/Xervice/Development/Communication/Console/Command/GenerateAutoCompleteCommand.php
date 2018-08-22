@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Xervice\Development\Command;
+namespace Xervice\Development\Communication\Console\Command;
 
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Xervice\Console\Command\AbstractCommand;
+use Xervice\Console\Business\Model\Command\AbstractCommand;
 
 /**
  * @method \Xervice\Development\DevelopmentFacade getFacade()
@@ -24,7 +24,6 @@ class GenerateAutoCompleteCommand extends AbstractCommand
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
      * @return void
-     * @throws \Core\Locator\Dynamic\ServiceNotParseable
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

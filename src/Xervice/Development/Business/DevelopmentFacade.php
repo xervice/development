@@ -1,15 +1,15 @@
 <?php
 
 
-namespace Xervice\Development;
+namespace Xervice\Development\Business;
 
 
-use Xervice\Core\Facade\AbstractFacade;
+use Xervice\Core\Business\Model\Facade\AbstractFacade;
+
 
 /**
- * @method \Xervice\Development\DevelopmentFactory getFactory()
+ * @method \Xervice\Development\Business\DevelopmentFactory getFactory()
  * @method \Xervice\Development\DevelopmentConfig getConfig()
- * @method \Xervice\Development\DevelopmentClient getClient()
  */
 class DevelopmentFacade extends AbstractFacade
 {

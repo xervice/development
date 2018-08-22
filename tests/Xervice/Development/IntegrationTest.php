@@ -2,31 +2,15 @@
 namespace XerviceTest\Development;
 
 use Generated\Ide\LocatorAutoComplete;
-use Xervice\Core\Locator\Dynamic\DynamicLocator;
+use Xervice\Core\Business\Model\Locator\Dynamic\Business\DynamicBusinessLocator;
 
 /**
  * @method \Xervice\Development\DevelopmentFacade getFacade()
  */
 class IntegrationTest extends \Codeception\Test\Unit
 {
-    use DynamicLocator;
+    use DynamicBusinessLocator;
 
-    /**
-     * @var \XerviceTest\XerviceTester
-     */
-    protected $tester;
-    
-    protected function _before()
-    {
-    }
-
-    protected function _after()
-    {
-    }
-
-    /**
-     * @throws \Core\Locator\Dynamic\ServiceNotParseable
-     */
     public function testSomeFeature()
     {
         $this->getFacade()->generateAutoComplete();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Xervice\Development\Generator;
+namespace Xervice\Development\Business\Model\Generator;
 
 interface AutoCompleteGeneratorInterface
 {
